@@ -17,7 +17,6 @@
     ansible.builtin.group:
       name: "{{ groupName }}"
       state: absent
-      remove: yes
 
 
   - name: Task 4 => Retrieve group details - To verify whether the group '{{ groupName }}' is deleted in the system

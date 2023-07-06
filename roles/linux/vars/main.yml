@@ -7,4 +7,6 @@ userName: venki771
 password: venki@123
 userGroup: [administrator,users]
 userNames: [venki111, venki222]
+groupName: users1
+groupId: 77777
 

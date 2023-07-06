@@ -9,13 +9,13 @@
 
 #- import_tasks: users/individual/delete/tasks_delete_user.yml
 
-#- import_tasks: users/individual/update/tasks_update_user_password.yml
+#- import_tasks: users/individual/update/user_password/tasks_update_user_password.yml
 
-#- import_tasks: users/individual/delete/tasks_delete_bulk_users.yml
+#- import_tasks: users/bulk/delete/tasks_delete_bulk_users.yml
   
 
 
-#- import_tasks: software/installation/apache_web_server/tasks_install_apache_web_server.yml
+- import_tasks: software/installation/apache_web_server/tasks_install_apache_web_server.yml
 
 
 
