@@ -16,9 +16,3 @@
 
 
 - import_tasks: software/installation/apache_web_server/tasks_apache_web_server_installation.yml
-
-
-
-#- import_tasks: role/sw_installation/apache_web_server_http/configure.yml
-#- import_tasks: role/sw_installation/apache_web_server_http/install.yml
-#- import_tasks: role/sw_installation/apache_web_server_http/service.yml 
