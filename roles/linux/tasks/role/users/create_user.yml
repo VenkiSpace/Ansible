@@ -1,12 +1,12 @@
 
 --- 
 
-  - name: Task 1 => Retrieve user details from the system before executing the create operation
+  - name: create_user.yml: Task 1 => Retrieve user details from the system before executing the create operation
     getent:
       database: passwd
 
 
-  - name: Task 2 => Check whether the user id '{{ uid }}' is already exist in the system 
+  - name: create_user.yml: Task 2 => Check whether the user id '{{ uid }}' is already exist in the system 
     assert:
       that:
         # uid not in getent_passwd 
@@ -14,19 +14,19 @@
     when: 0 > 1
 
 
-  - name: Task 3 => Check whether the user '{{ userName }}' is already exist in the system
+  - name: create_user.yml: Task 3 => Check whether the user '{{ userName }}' is already exist in the system
     assert:
       that:
         - userName not in getent_passwd.keys()
       fail_msg: "Status: Failed !!! Status Message: The user '{{ userName }}' is already eixist in the system."
 
 
-  - name: Task 4 => Retrive existing group details from the system
+  - name: create_user.yml: Task 4 => Retrive existing group details from the system
     getent:
       database: group
 
 
-  - name: Task 5 => Check whether the group '{{ userGroup }}' exists in the system
+  - name: create_user.yml: Task 5 => Check whether the group '{{ userGroup }}' exists in the system
     assert:
       that:
         - item in getent_group.keys()
@@ -34,7 +34,7 @@
     loop: "{{ userGroup }}"
 
 
-  - name: Task 6 => Execute user creaate operation for the given user name  '{{ userName }}'  
+  - name: create_user.yml: Task 6 => Execute user creaate operation for the given user name  '{{ userName }}'  
     ansible.builtin.user:
       uid: "{{ uid }}"
       name: "{{ userName }}"
@@ -48,12 +48,12 @@
       expires: 1422403387
 
 
-  - name: Task 7 => Retrieve user details from the system after executing the create  operation
+  - name: create_user.yml: Task 7 => Retrieve user details from the system after executing the create  operation
     getent:
       database: passwd
 
 
-  - name: Task 8 => Check and confirm that the user '{{ userName }}' is created  successfully
+  - name: create_user.yml: Task 8 => Check and confirm that the user '{{ userName }}' is created  successfully
     assert:
       that:
         - userName in getent_passwd.keys()
