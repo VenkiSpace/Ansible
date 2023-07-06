@@ -5,14 +5,20 @@
 
 
   
-  #- import_tasks: users/single/create/tasks_create_user.yml
+#- import_tasks: users/individual/create/tasks_create_user.yml
 
-  #- import_tasks: users/single/delete/tasks_delete_user.yml
+#- import_tasks: users/individual/delete/tasks_delete_user.yml
 
-  #- import_tasks: users/single/update/tasks_update_user_password.yml
+#- import_tasks: users/individual/update/tasks_update_user_password.yml
 
-  #- import_tasks: users/bulk/delete/tasks_delete_bulk_users.yml
+#- import_tasks: users/individual/delete/tasks_delete_bulk_users.yml
   
 
 
-- import_tasks: software/installation/apache_web_server/tasks_apache_web_server_installation.yml
+#- import_tasks: software/installation/apache_web_server/tasks_install_apache_web_server.yml
+
+
+
+#- import_tasks: user_groups/individual/create/tasks_create_user_group.yml
+
+#- import_tasks: user_groups/individual/delete/tasks_delete_user_group.yml
