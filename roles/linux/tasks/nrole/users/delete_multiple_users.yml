@@ -1,0 +1,69 @@
+
+--- 
+- name: Delete the given users from the system
+  hosts: all
+  become: true
+  
+  tasks: 
+    
+    - name: Task 1 => Initialize an empty list of users
+      set_fact:
+        existing_users: []
+        non_existing_users: []
+
+
+    - name: Task 2 => Retrieve users details from the system before executing the delete operation
+      getent:
+        database: passwd
+       
+       
+    - name: Task 3 => Execute Delete operation for the given users  '{{ userNames }}'          
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: absent
+        remove: yes
+      when: item in getent_passwd.keys()
+      loop: "{{ userNames }}"
+
+    
+    - name: Task 4 => Create a list of users from '{{ userNames }}' which are exist in the system
+      set_fact:
+        existing_users: "{{ existing_users +  [ item ] }}"
+      when: item in getent_passwd.keys()
+      loop: "{{ userNames }}"
+      
+      
+    - name: Task 5 => Create a list of users from '{{ userNames }}' which are not exist in the system    
+      set_fact:
+        non_existing_users: "{{ non_existing_users +  [ item ] }}"
+      when: item not in getent_passwd.keys()
+      loop: "{{ userNames }}"
+
+
+    - name: Task 6 => Merge existing and non existing users
+      set_fact:
+        all_users: existing_users + non_existing_users
+    
+    
+    - name: Task 7 => Retrieve users details from the system after executing the delete operation
+      getent:
+        database: passwd
+       
+        
+    - name: Task 8 => Confirm on the deletion... Check Whether the users in '{{ userNames }}' are still exist in the system             
+      assert:
+        that:
+          - item not in getent_passwd.keys()
+        fail_msg: "Status: Failed !!! Status Message: The user '{{ item }}' still exists in the system."
+      loop: "{{ userNames }}"
+
+    - name: Print Existing User List
+      ansible.builtin.debug:
+        var: existing_users
+
+    - name: Print Non Existing User List
+      ansible.builtin.debug:
+        var: non_existing_users
+  
+      
+        

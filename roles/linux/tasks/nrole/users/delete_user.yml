@@ -1,0 +1,40 @@
+
+--- 
+- name: Delete the given user from the system
+  hosts: all
+  become: true
+  
+  tasks: 
+    - name: Task 1 => Retrieve user details from the system before executing the delete operation
+      getent:
+        database: passwd
+
+
+    - name: Task 2 => Check Whether the user to be deleted '{{ userName }}' exists in the system
+      assert:
+        that:
+          - userName in getent_passwd.keys()
+        fail_msg: "Status: Failed !!! Status Message: The user to be deleted '{{ userName }}' does not exist in the system."
+
+
+    - name: Task 3 => Execute Delete operation for the given user  '{{ userName }}'          
+      ansible.builtin.user:
+        name: "{{ userName }}"
+        state: absent
+        remove: yes
+
+
+    - name: Task 4 => Retrieve user details from the system after executing the delete operation
+      getent:
+        database: passwd
+
+
+    - name: Task 5 => Check and confirm that the deletion operation is completed successfully
+      assert:
+        that:
+          - userName not in getent_passwd.keys()
+        success_msg: "Status: Success!!! Status Message: Deletion operation is completed successfully for the user '{{ userName }}'" 
+        fail_msg: "Status: Failure!!! Status Message: Deletion operation is failed for the user '{{ userName }}'"
+  
+      
+        

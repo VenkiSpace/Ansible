@@ -1,0 +1,43 @@
+
+--- 
+
+ - name: Create user in the system for the given user name
+   hosts: all
+   become: true
+
+   tasks:
+
+     - name: Task 1 => Retrieve user details from the system before executing the create operation
+       getent:
+         database: passwd
+
+
+     - name: Task 2 => Check Whether the user '{{ userName }}' is already exist in the system
+       assert:
+         that:
+           - userName not in getent_passwd.keys()
+         fail_msg: "Status: Failed !!! Status Message: The user '{{ userName }}' is already eixist in the system."
+
+
+     - name: Task 3 => Execute user creaate operation for the given user name  '{{ userName }}'
+          
+       ansible.builtin.user:
+         name: "{{ userName }}"
+         state: present
+         #password: "{{ password | password_hash('sha512') }}"
+
+
+     - name: Task 4 => Retrieve user details from the system after executing the create  operation
+       getent:
+         database: passwd
+
+
+     - name: Task 5 => Check and confirm that the user '{{ userName }}' is created  successfully
+       assert:
+         that:
+           - userName in getent_passwd.keys()
+         success_msg: "Status: Success!!! Status Message: Creation operation is completed successfully for the user name '{{ userName }}'" 
+         fail_msg: "Status: Failure!!! Status Message: Creation operation is failed for the user name '{{ userName }}'"
+  
+      
+          

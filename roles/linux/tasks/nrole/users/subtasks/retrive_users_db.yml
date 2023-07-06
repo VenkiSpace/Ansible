@@ -1,0 +1,6 @@
+
+--- 
+
+  - name: Task 1 => Retrieve user details from the system before executing the create operation
+    getent:
+      database: passwd

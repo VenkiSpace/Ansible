@@ -1,0 +1,31 @@
+---
+# tasks file for apache
+#
+- include_vars: ../vars/main.yml
+
+#
+# Imports for delete_user
+#
+#- import_tasks: role/users/delete_user.yml
+#
+
+
+#
+# Imports for update_user_password
+#
+#- import_tasks: role/users/update_user_password.yml
+#
+
+#
+# Imports for create_user
+#
+- import_tasks: role/users/create_user.yml
+#
+
+
+#
+# Imports for apache web server (http server) installation 
+#
+#- import_tasks: role/sw_installation/apache_web_server_http/configure.yml
+#- import_tasks: role/sw_installation/apache_web_server_http/install.yml
+#- import_tasks: role/sw_installation/apache_web_server_http/service.yml 
