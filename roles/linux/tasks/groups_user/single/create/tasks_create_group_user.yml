@@ -1,0 +1,42 @@
+
+--- 
+
+  - name: Task 1 => Retrieve group details from the system before executing the create operation
+    getent:
+      database: group
+     
+     
+  - name: Task 2 => Check whether the group id '{{ groupId }}' is already exist in the system 
+    assert:
+      that:
+        # uid not in getent_passwd 
+      fail_msg: "Status: Failed !!! Status Message: The group id '{{ groupId }}' is already exists in the system."
+    when: 0 > 1
+
+
+  - name: Task 3 => Check Whether the user '{{ groupName }}' is already exist in the system
+    assert:
+      that:
+        - groupName not in getent_group.keys()
+      fail_msg: "Status: Failed !!! Status Message: The group '{{ groupName }}' is already eixist in the system."
+
+
+  - name: Task 4 => Execute group creation operation for the given group name  '{{ groupName }}'  
+    ansible.builtin.group:
+      gid: "{{ groupId }}"
+      name: "{{ groupName }}"
+      state: present
+
+
+  - name: Task 5 => Retrieve group details from the system after executing the create  operation
+    getent:
+      database: group
+
+
+  - name: Task 6 => Check and confirm that the group '{{ groupName }}' is created  successfully
+    assert:
+      that:
+        - groupName in getent_group.keys()
+      success_msg: "Status: Success!!! Status Message: Group Creation operation is completed successfully for the group name '{{ groupName }}'" 
+      fail_msg: "Status: Failure!!! Status Message: Creation operation is failed for the user name '{{ groupName }}'"
+  

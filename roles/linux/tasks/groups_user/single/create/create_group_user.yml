@@ -1,0 +1,10 @@
+
+--- 
+
+ - name: Create user group in the system for the given group name
+   hosts: all
+   become: true
+
+   tasks:
+           
+     - include_tasks: tasks_create_group_user.yml

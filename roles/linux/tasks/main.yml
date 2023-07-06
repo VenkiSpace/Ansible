@@ -3,29 +3,22 @@
 #
 - include_vars: ../vars/main.yml
 
-#
-# Imports for delete_user
-#
-#- import_tasks: role/users/delete_user.yml
-#
+
+  
+  #- import_tasks: users/single/create/tasks_create_user.yml
+
+  #- import_tasks: users/single/delete/tasks_delete_user.yml
+
+  #- import_tasks: users/single/update/tasks_update_user_password.yml
+
+  #- import_tasks: users/bulk/delete/tasks_delete_bulk_users.yml
+  
 
 
-#
-# Imports for update_user_password
-#
-#- import_tasks: role/users/update_user_password.yml
-#
-
-#
-# Imports for create_user
-#
-- import_tasks: role/users/create_user.yml
-#
+- import_tasks: software/installation/apache_web_server/tasks_apache_web_server_installation.yml
 
 
-#
-# Imports for apache web server (http server) installation 
-#
+
 #- import_tasks: role/sw_installation/apache_web_server_http/configure.yml
 #- import_tasks: role/sw_installation/apache_web_server_http/install.yml
 #- import_tasks: role/sw_installation/apache_web_server_http/service.yml 

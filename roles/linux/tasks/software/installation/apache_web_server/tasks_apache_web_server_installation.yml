@@ -1,0 +1,5 @@
+---
+  
+- import_tasks: subtasks/install.yml
+- include_tasks: subtasks/configure.yml
+- include_tasks: subtasks/service.yml

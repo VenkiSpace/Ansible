@@ -1,0 +1,6 @@
+---
+- name: test
+  hosts: all
+  
+  tasks:
+    - include_tasks: tasks_apache_web_server_installation.yml

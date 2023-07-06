@@ -1,0 +1,10 @@
+
+--- 
+
+ - name: Delete user in the system for the given user name
+   hosts: all
+   become: true
+
+   tasks:
+           
+     - include_tasks: tasks_delete_user.yml
