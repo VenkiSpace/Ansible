@@ -7,4 +7,4 @@
 
    tasks:
            
-     - include_tasks: tasks_delete_group_user.yml
+     - include_tasks: tasks_delete_user_group.yml
