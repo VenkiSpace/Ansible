@@ -1,0 +1,28 @@
+
+---
+
+  - name: Populate service facts
+    service_facts:
+    
+  - name: Task 2 => Confirm that the service is running 
+    assert:
+      that:
+        ansible_facts['services']['{{serviceName}}']['state'] != 'running' 
+      fail_msg: "Status: Failed !!! Status Message: The service '{{ serviceName }}' is already running in the system."
+    when: 0 > 1
+    
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name: "{{serviceName}}"
+      state: started
+    
+  - name: Populate service facts
+    service_facts:
+    
+  - name: Task 2 => Confirm that the service is running 
+    assert:
+      that:
+        ansible_facts['services']['{{serviceName}}']['state'] == 'running' 
+      success_msg: "Status: Success !!! Status Message: The service '{{ serviceName }}' is started in the system."
+      fail_msg: "Status: Failure !!! Status Message: The service '{{ serviceName }}' is not started in the system."
+    when: 0 > 1
