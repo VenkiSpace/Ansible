@@ -26,3 +26,13 @@
       success_msg: "Status: Success !!! Status Message: The service '{{ serviceName }}' is started in the system."
       fail_msg: "Status: Failure !!! Status Message: The service '{{ serviceName }}' is not started in the system."
     when: 0 > 1
+
+
+  - name: Print target Host Name
+    ansible.builtin.debug:
+      msg: HostName => {{ inventory_hostname }}
+
+
+  - name: Print target IP Address
+    ansible.builtin.debug:
+      msg: IPAddress => {{hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]}}
