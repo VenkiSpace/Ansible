@@ -1,0 +1,25 @@
+---
+
+  - name: Checkout respository from Git
+    hosts: localhost
+    connection: local 
+    
+    vars:
+      dest_dir: /etc/temp/
+      git_token: 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
+      repo:VenkiSpace/ansible.git
+    
+    tasks:
+
+      - name: clean directory
+        ansible.builtin.file:
+          state: absent
+          path: "{{ dest_dir }}"
+
+
+      - name: Check out repository
+        become: yes
+        git:
+          repo: 'https://{{git_token}}@github.com/{{repo}}'
+          dest: "{{ dest_dir }}"
+          
