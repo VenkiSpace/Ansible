@@ -8,7 +8,7 @@
   - name: check whether service exists or not
     assert:
       that:
-        service_name.stat.exists
+        serviceName.stat.exists
       fail_msg: "Status: Failed !!! Status Message: The specified service does not exists"
 
   - name: Populate service facts
