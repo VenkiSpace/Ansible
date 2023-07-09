@@ -1,48 +1,55 @@
 
 ---
 
-  - name: Check if Service Exists
-    stat: path=/etc/init.d/{{service_name}}
+  - name: Task 1 => Collect service status from the target system
+    stat: path=/etc/init.d/{{serviceName}}
     register: service_status
 
-  - name: check whether service exists or not
+
+  - name: Task 2 => Check whether the input service '{{ serviceName }}' exists in the target system  or not
     assert:
       that:
-        serviceName.stat.exists
-      fail_msg: "Status: Failed !!! Status Message: The specified service does not exists"
+        service_status.stat.exists
+      fail_msg: "Status: Failed !!! Status Message: The input service '{{ serviceName }}'  does not exist in the target system"
 
-  - name: Populate service facts
+
+  - name: Task 3  => Collect Service Details from the target system
     service_facts:
-    
-  - name: Task 2 => Confirm that the service is running 
+  
+  
+  - name: Task 4 => Confirm that the service is running in the target system
     assert:
       that:
         ansible_facts['services']['{{serviceName}}']['state'] != 'running' 
-      fail_msg: "Status: Failed !!! Status Message: The service '{{ serviceName }}' is already running in the system."
+      fail_msg: "Status: Aborted !!! Status Message: The input service '{{ serviceName }}' is already running in the target system."
     when: 0 > 1
-    
-  - name: Start service httpd, if not started
+
+
+  - name: Task 5  => Start service '{{ serviceName }}' in the target system
     ansible.builtin.service:
       name: "{{serviceName}}"
       state: started
-    
-  - name: Populate service facts
+  
+
+  - name: Task 6 => Collect Service Details from the target system
     service_facts:
     
-  - name: Task 2 => Confirm that the service is running 
+
+  - name: Task 7 => Confirm that the service is running 
     assert:
       that:
         ansible_facts['services']['{{serviceName}}']['state'] == 'running' 
-      success_msg: "Status: Success !!! Status Message: The service '{{ serviceName }}' is started in the system."
-      fail_msg: "Status: Failure !!! Status Message: The service '{{ serviceName }}' is not started in the system."
+      success_msg: "Status: Success !!! Status Message: The input service '{{ serviceName }}' is started in the target system."
+      fail_msg: "Status: Failure !!! Status Message: The input service '{{ serviceName }}' is not started in the target system."
     when: 0 > 1
 
 
-  - name: Print target Host Name
+  - name: Task 8 => Print target Host Name
     ansible.builtin.debug:
       msg: HostName => {{ inventory_hostname }}
 
 
-  - name: Print target IP Address
+  - name: Task 9 => Print target IP Address
     ansible.builtin.debug:
-      msg: IPAddress => {{hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]}}
+      msg: IPAddress => {{hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ' )[2]}}
+
