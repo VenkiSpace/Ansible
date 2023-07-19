@@ -1,0 +1,14 @@
+---
+
+  - name: Checkout respository from Git
+    hosts: localhost
+    connection: local 
+    
+    vars:
+      dest_dir: /etc/temp/
+      git_token: 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
+      repo: VenkiSpace/ansible.git
+    
+    tasks:
+      - include_tasks: tasks_checkout_repo.yml
+      

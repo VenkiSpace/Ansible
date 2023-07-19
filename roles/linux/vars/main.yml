@@ -11,3 +11,8 @@ groupName: users1
 groupId: 77777
 serviceName: httpd
 
+# roles/linux/tasks/github/checkout
+dest_dir: /etc/temp/
+git_token: ***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***
+repo: VenkiSpace/ansible.git
+

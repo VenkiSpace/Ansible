@@ -1,0 +1,9 @@
+https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_module.html
+
+https://www.middlewareinventory.com/blog/ansible-get-ip-address/
+
+https://www.thegeekdiary.com/service-command-examples-in-linux/
+
+
+
+
